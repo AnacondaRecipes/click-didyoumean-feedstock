@@ -31,7 +31,9 @@ test:
     - click_didyoumean
   requires:
     - pip
-    - pytest >=6.2.5,<7.0.0
+    # For some reason we don't have pytest pyt3.10 in this range pytest>=6.2.5,<7.0.0
+    - pytest >=6.2.5,<7.0.0  # [py>310 or py>310]
+    - pytest >=6.2.5,<=7.1.1  # [py==310]
   commands:
     - pip check
     - python -c "from importlib.metadata import version; assert(version('{{ name }}')=='{{ version }}')"
