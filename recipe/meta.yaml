@@ -6,7 +6,7 @@ package:
   version: {{ version }}
 
 source:
-  url: https://github.com/click-contrib/{{ name }}/archive/v{{ version }}.tar.gz
+  url: https://github.com/{{ name.split('-')[0] }}-contrib/{{ name }}/archive/v{{ version }}.tar.gz
   sha256: 26d9b1caf6a263c3607b18caa6e36d5a399473e75ed194d76c0eff2221aade03
 
 build:
