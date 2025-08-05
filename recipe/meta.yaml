@@ -1,37 +1,53 @@
 {% set name = "click-didyoumean" %}
-{% set version = "0.0.3" %}
+{% set version = "0.3.1" %}
 
 package:
   name: {{ name|lower }}
   version: {{ version }}
 
 source:
-  url: https://pypi.io/packages/source/{{ name[0] }}/{{ name }}/{{ name }}-{{ version }}.tar.gz
-  sha256: 112229485c9704ff51362fe34b2d4f0b12fc71cc20f6d2b3afabed4b8bfa6aeb
+  url: https://github.com/{{ name.split('-')[0] }}-contrib/{{ name }}/archive/v{{ version }}.tar.gz
+  sha256: 26d9b1caf6a263c3607b18caa6e36d5a399473e75ed194d76c0eff2221aade03
 
 build:
-  noarch: python
+  script: {{ PYTHON }} -m pip install . -vv --no-deps --no-build-isolation
   number: 0
-  script: '{{ PYTHON }} -m pip install . -vv'
 
 requirements:
   host:
     - pip
     - python
+    - poetry-core >=1.0.0
   run:
-    - click
+    - click >=7
     - python
+  run_constrained:
+    - python >=3.6.2
 
 test:
+  source_files:
+    - tests
   imports:
     - click_didyoumean
+  requires:
+    - pip
+    # For some reason we don't have pytest pyt3.10 in this range pytest>=6.2.5,<7.0.0
+    - pytest >=6.2.5,<7.0.0  # [py<310 or py>310]
+    - pytest >=6.2.5,<=7.1.1  # [py==310]
+  commands:
+    - pip check
+    - python -c "from importlib.metadata import version; assert(version('{{ name }}')=='{{ version }}')"
+    - pytest -v tests
 
 about:
-  home: https://github.com/timofurrer/click-didyoumean
+  home: https://github.com/click-contrib/click-didyoumean
   license: MIT
   license_family: MIT
   license_file: LICENSE
   summary: Enable git-like did-you-mean feature in click.
+  description: Enable git-like did-you-mean feature in click.
+  doc_url: https://github.com/click-contrib/click-didyoumean/blob/master/README.rst
+  dev_url: https://github.com/click-contrib/click-didyoumean
 
 extra:
   recipe-maintainers:
