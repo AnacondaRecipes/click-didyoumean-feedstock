@@ -33,8 +33,7 @@ test:
   commands:
     - pip check
     - python -c "from importlib.metadata import version; assert(version('{{ name }}')=='{{ version }}')"
-    # ModuleNotFoundError: No module named 'click'
-    # - pytest -v tests
+    - pytest -v tests
 
 about:
   home: https://github.com/click-contrib/click-didyoumean
