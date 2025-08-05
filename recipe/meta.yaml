@@ -31,7 +31,7 @@ test:
     - click_didyoumean
   requires:
     - pip
-    - pytest
+    - pytest >=6.2.5,<7.0.0
   commands:
     - pip check
     - python -c "from importlib.metadata import version; assert(version('{{ name }}')=='{{ version }}')"
