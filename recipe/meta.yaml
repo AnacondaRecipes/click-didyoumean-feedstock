@@ -31,8 +31,8 @@ test:
     - click_didyoumean
   requires:
     - pip
-    - pytest >=6.2.5,<=7.1.1  # [py>=310 or py<314]
-    - pytest ==8.4.2  # [py==314]
+    - pytest >=6.2.5,<=7.1.1  # [py<314]
+    - pytest 8.4.2  # [py==314]
   commands:
     - pip check
     - python -c "from importlib.metadata import version; assert(version('{{ name }}')=='{{ version }}')"
